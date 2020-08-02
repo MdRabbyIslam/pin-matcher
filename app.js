@@ -11,6 +11,7 @@ randomButton_button.addEventListener("click", (e) => {
     randomNumbers += randomNumber;
   }
   randomDisplay_input.value = randomNumbers;
+
 });
 
 //todo 02. creating calculator
@@ -34,8 +35,23 @@ calculator_div.addEventListener("click", (e) => {
     }
     //* for clear all key
     if (action === "clearAll") {
-      console.log("clear-All clicked");
       calculatorDisplay_input.value = "";
     }
   }
+});
+
+//* task 03. matching
+
+const submitbtn_button = document.querySelector("#submit");
+submitbtn_button.addEventListener("click", (e) => {
+  const randomValue = randomDisplay_input.value;
+  const calculatorValue = calculatorDisplay_input.value;
+
+  if (randomValue === calculatorValue) {
+    document.querySelector(".ok").style.display = 'block';
+  } else {
+    document.querySelector(".cross").style.display = "block"
+  }
+
+
 });
