@@ -11,7 +11,11 @@ randomButton_button.addEventListener("click", (e) => {
     randomNumbers += randomNumber;
   }
   randomDisplay_input.value = randomNumbers;
-
+  document.querySelector("#try-left").textContent = "3 try left";
+  document.querySelector("#submit").removeAttribute("disabled", "");
+  calculator_div.dataset.tryLeftNum = 0;
+  document.querySelector(".cross").style.display = "none"
+  document.querySelector(".ok").style.display = 'none';
 });
 
 //todo 02. creating calculator
@@ -43,15 +47,43 @@ calculator_div.addEventListener("click", (e) => {
 //* task 03. matching
 
 const submitbtn_button = document.querySelector("#submit");
+calculator_div.dataset.tryLeftNum = "0"
 submitbtn_button.addEventListener("click", (e) => {
   const randomValue = randomDisplay_input.value;
   const calculatorValue = calculatorDisplay_input.value;
 
-  if (randomValue === calculatorValue) {
+  if (randomValue === calculatorValue && randomValue !== "") {
     document.querySelector(".ok").style.display = 'block';
+    document.querySelector(".cross").style.display = "none";
+
+    document.querySelector("#random-pin-display").value = "";
+    document.querySelector("#calculator-display").value = "";
+
   } else {
     document.querySelector(".cross").style.display = "block"
+    document.querySelector(".ok").style.display = 'none';
+
+    document.querySelector("#calculator-display").value = "";
+
+    const tryLeft = calculator_div.dataset.tryLeftNum;
+    let tryLeftNum = parseInt(tryLeft);
+    tryLeftNum += 1;
+    console.log(tryLeftNum)
+    calculator_div.dataset.tryLeftNum = tryLeftNum;
+    const tryLeftDisplay = document.querySelector("#try-left");
+    const submitBtn = document.querySelector("#submit");
+    switch (tryLeftNum) {
+      case 1:
+        tryLeftDisplay.textContent = "2 try left";
+        break;
+      case 2:
+        tryLeftDisplay.textContent = "1 try left";
+        break;
+      case 3:
+        tryLeftDisplay.textContent = "0 try left"
+        document.querySelector("#submit").setAttribute("disabled", "");
+        document.querySelector("#random-pin-display").value = "";
+        break;
+    }
   }
-
-
 });
